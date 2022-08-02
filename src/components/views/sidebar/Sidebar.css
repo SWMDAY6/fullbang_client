@@ -1,0 +1,60 @@
+.accomodationImg {
+    width:138px;
+    height:163px;
+    float:left;
+}
+
+.accomodationName {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 17px;
+    padding-top:18px;
+    text-align: left;
+    margin-left:7px;
+    color: #000000;
+    float:left;
+}
+
+.accomodationStar {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #F49C00;
+    /*float:left;*/
+}
+
+.yanoljaPrice {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: left;
+    color: #545454;
+}
+
+.yanoljaPrice img {
+    float:left;
+}
+
+.yanoljaPrice div {
+    float:right;
+}
+
+
+.yeogiattaePrice {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: left;
+    color: #545454;
+}
+
+.yeogiattaePrice img {
+    float:left;
+}
+
+.yeogiattaePrice div {
+    float:right;
+}
