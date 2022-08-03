@@ -34,11 +34,18 @@
 }
 
 .yanoljaPrice img {
+    padding-left: 10px;
     float:left;
 }
 
 .yanoljaPrice div {
+    padding-right: 10px;
     float:right;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 17px;
+    /* identical to box height */
+    color: #F49C00;
 }
 
 
@@ -52,9 +59,11 @@
 }
 
 .yeogiattaePrice img {
+    padding-left: 10px;
     float:left;
 }
 
 .yeogiattaePrice div {
+    padding-right: 10px;
     float:right;
 }

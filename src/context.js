@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 
 const AppContext = React.createContext();
 
@@ -9,6 +9,11 @@ const AppProvider = ({ children }) => {
     useState(false);
   const [isMapDetailOpen, setMapDetailOpen] = useState(false);
   const [isMyPageDetailOpen, setMyPageDetailOpen] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState({
+    sido: 11,
+    sigungu: 680,
+    dong: 101,
+  });
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -51,10 +56,18 @@ const AppProvider = ({ children }) => {
   };
   const switchMyPageDetail = () => {
     if (isMyPageDetailOpen === true) {
-      setMyPageDetailOpen(false);
+        closeMyPageDetail();
     } else {
-      setMyPageDetailOpen(true);
+        openMyPageDetail();
     }
+  };
+  const setSelectedAddressDetail = (props) => {
+    setSelectedAddress({
+        sido: props.sido,
+        sigungu: props.sigungu,
+        dong: props.dong
+    });
+    // console.log("in context : " + props.sido + props.sigungu +props.dong);
   };
 
   return (
@@ -64,6 +77,7 @@ const AppProvider = ({ children }) => {
         isMapDetailOpen,
         isSearchDetailSidebarOpen,
         isMyPageDetailOpen,
+        selectedAddress,
         switchSearchDetail,
         openSearchDetail,
         closeSearchDetail,
@@ -73,6 +87,7 @@ const AppProvider = ({ children }) => {
         switchMyPageDetail,
         openModal,
         closeModal,
+        setSelectedAddressDetail,
       }}
     >
       {children}

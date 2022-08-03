@@ -1,4 +1,3 @@
-import { AppProvider, useGlobalContext } from "../../../context";
 import styled from "styled-components";
 import "./Sidebar.css";
 import yanolja from "../../../assets/logo_yanolja.png";
@@ -20,16 +19,16 @@ const Sidebar = (props) => {
         {props.AccomodationList.map((data) => {
           return (
             <AccommodationBox>
-              <img className="accomodationImg" src={data.img_src} />
+              <img className="accomodationImg" alt="숙소 사진" src={data.img_src} />
 
               <div className="accomodationName">{data.name}</div>
 
               <br />
-              {/* <div className="accomodationStar">{data.stars}</div> */}
-
+                <br />
+                <br />
               <br />
               <div className="yanoljaPrice">
-                <img src={yanolja} />
+                <img src={yanolja} alt="야놀자" />
                 <div>
                   {data.yanolja
                     .toString()
@@ -39,11 +38,13 @@ const Sidebar = (props) => {
               </div>
               <br />
               <div className="yeogiattaePrice">
-                <img src={yeogiattae} />
+                <img src={yeogiattae} alt="여기어때" />
+                  <div>
                 {data.yeogiattae
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 원
+                  </div>
               </div>
             </AccommodationBox>
           );
