@@ -27,25 +27,25 @@ const Sidebar = (props) => {
                 <br />
                 <br />
               <br />
-              <div className="yanoljaPrice">
-                <img src={yanolja} alt="야놀자" />
-                <div>
-                  {data.yanolja
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  원
-                </div>
-              </div>
-              <br />
-              <div className="yeogiattaePrice">
-                <img src={yeogiattae} alt="여기어때" />
-                  <div>
-                {data.yeogiattae
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                원
-                  </div>
-              </div>
+              {/*<div className="yanoljaPrice">*/}
+              {/*  <img src={yanolja} alt="야놀자" />*/}
+              {/*  <div>*/}
+              {/*    {data.yanolja*/}
+              {/*      .toString()*/}
+              {/*      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}*/}
+              {/*    원*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              {/*<br />*/}
+              {/*<div className="yeogiattaePrice">*/}
+              {/*  <img src={yeogiattae} alt="여기어때" />*/}
+              {/*    <div>*/}
+              {/*  {data.yeogiattae*/}
+              {/*    .toString()*/}
+              {/*    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}*/}
+              {/*  원*/}
+              {/*    </div>*/}
+              {/*</div>*/}
             </AccommodationBox>
           );
         })}

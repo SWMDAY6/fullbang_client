@@ -55,7 +55,7 @@ const LandingPage = (): JSX.Element => {
       <Sidebar AccomodationList={AccomodationList} />
       <div className="landing-page">
         <div className="landing-page__inner">
-          <Map searchKeyword={Keyword} />
+          <Map AccomodationList={AccomodationList}/>
         </div>
       </div>
     </>
@@ -66,43 +66,68 @@ export default LandingPage;
 
 const AccomodationList = [
   {
-    name: "페어필드 바이 메리어트 강남",
-    yanolja: 10835006,
-    yeogiattae: 118750,
-    stars: 9.3,
-    img_src:
-      "https://image.goodchoice.kr/resize_490x348/adimg_new/1/298386/16ff63278a75e0866797808ea2ff7094.jpg",
+    "id": 867,
+    "name": "삼성 디에이스",
+    "type": "MOTEL",
+    "addressFullName": "서울 강남구 테헤란로77길 11-5",
+    "region1DepthName": "서울",
+    "region2DepthName": "강남구",
+    "region3DepthName": "삼성동",
+    "addressCode": "1168010500",
+    "latitude": 37.5069797742866,
+    "longitude": 127.054033368231,
+    "price":15443
   },
   {
-    name: "페어필드 바이 메리어트 강남",
-    yanolja: 108356,
-    yeogiattae: 118750,
-    stars: 9.3,
-    img_src:
-      "https://image.goodchoice.kr/resize_490x348/adimg_new/1/298386/16ff63278a75e0866797808ea2ff7094.jpg",
+    "id": 1805,
+    "name": "역삼 브라운도트",
+    "type": "HOTEL",
+    "addressFullName": "서울 강남구 테헤란로37길 13-5",
+    "region1DepthName": "서울",
+    "region2DepthName": "강남구",
+    "region3DepthName": "역삼동",
+    "addressCode": "1168010100",
+    "latitude": 37.5028451432202,
+    "longitude": 127.040286199577,
+    "price":12341
   },
   {
-    name: "페어필드 바이 메리어트 강남",
-    yanolja: 10830056,
-    yeogiattae: 118750,
-    stars: 9.3,
-    img_src:
-      "https://image.goodchoice.kr/resize_490x348/adimg_new/1/298386/16ff63278a75e0866797808ea2ff7094.jpg",
+    "id": 1876,
+    "name": "대치 컬리넌",
+    "type": "MOTEL",
+    "addressFullName": "서울 강남구 테헤란로78길 14-16",
+    "region1DepthName": "서울",
+    "region2DepthName": "강남구",
+    "region3DepthName": "대치동",
+    "addressCode": "1168010600",
+    "latitude": 37.5051075694305,
+    "longitude": 127.054243850146,
+    "price":1521000
   },
   {
-    name: "페어필드 바이 메리어트 강남",
-    yanolja: 108356,
-    yeogiattae: 1131238750,
-    stars: 9.3,
-    img_src:
-      "https://image.goodchoice.kr/resize_490x348/adimg_new/1/298386/16ff63278a75e0866797808ea2ff7094.jpg",
+    "id": 3119,
+    "name": "삼성 캘리포니아",
+    "type": "PENSION",
+    "addressFullName": "서울 강남구 선릉로100길 52",
+    "region1DepthName": "서울",
+    "region2DepthName": "강남구",
+    "region3DepthName": "삼성동",
+    "addressCode": "1168010500",
+    "latitude": 37.5066491822084,
+    "longitude": 127.051439642145,
+    "price":1032400
   },
   {
-    name: "페어필드 바이 메리어트 강남",
-    yanolja: 10830056,
-    yeogiattae: 118750,
-    stars: 9.3,
-    img_src:
-      "https://image.goodchoice.kr/resize_490x348/adimg_new/1/298386/16ff63278a75e0866797808ea2ff7094.jpg",
-  },
+    "id": 3566,
+    "name": "역삼 CF호텔",
+    "type": "MOTEL",
+    "addressFullName": "서울 강남구 언주로85길 10",
+    "region1DepthName": "서울",
+    "region2DepthName": "강남구",
+    "region3DepthName": "역삼동",
+    "addressCode": "1168010100",
+    "latitude": 37.5012576880318,
+    "longitude": 127.042272138321,
+    "price":1123000
+  }
 ];

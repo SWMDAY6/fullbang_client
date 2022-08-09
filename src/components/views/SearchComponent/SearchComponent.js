@@ -12,10 +12,10 @@ const SearchComponent = () => {
   const [sido, setSido] = useState("11");
   const [sigungu, setSigungu] = useState("680");
   const [dong, setDong] = useState("101");
-  const [peopleNum, setPeopleNum] = useState(1);
+  const [peopleNum, setPeopleNum] = useState(2);
   const [parkingAble, setParkingAble] = useState(0);
   const [parkingUnable, setParkingUnable] = useState(0);
-  const { selectedAddress,setSelectedAddressDetail } = useGlobalContext();
+  const { selectedAddress,setSelectedAddressDetail,setSelectedBoxAddressDetail,setMapCenter,mapCenter } = useGlobalContext();
 
   const handleSido = (e) => {
     setSido(e.target.value);
@@ -23,7 +23,13 @@ const SearchComponent = () => {
       sido:e.target.value,
       sigungu:0,
       dong:0
-    })
+    });
+
+    const v = bubjungdong_sido.find(v => v.sido === e.target.value);
+    setSelectedBoxAddressDetail({sido:v.sido, sigungu:v.sigungu, dong:v.dong});
+    setMapCenter({lat:v.latitude,lng:v.longitude,zoomLevel:10});
+    // console.log(mapCenter);
+    // console.log(v);
   };
   const handleSigungu = (e) => {
     setSigungu(e.target.value);
@@ -31,7 +37,13 @@ const SearchComponent = () => {
       sido:selectedAddress.sido,
       sigungu:e.target.value,
       dong:0
-    })
+    });
+
+    const v = bubjungdong_sigungu.find(v => v.sido === sido && v.sigungu === e.target.value);
+    setSelectedBoxAddressDetail({sido:v.sido, sigungu:v.sigungu, dong:null});
+    setMapCenter({lat:v.latitude,lng:v.longitude,zoomLevel:7});
+    // console.log(mapCenter);
+    // console.log(v);
   };
   const handleDong = (e) => {
     setDong(e.target.value);
@@ -40,6 +52,12 @@ const SearchComponent = () => {
       sigungu:selectedAddress.sigungu,
       dong:e.target.value
     })
+
+    const v = bubjungdong_dong.find(v => v.sido === sido && v.sigungu === sigungu && v.dong === e.target.value);
+    setSelectedBoxAddressDetail({sido:v.sido, sigungu:v.sigungu, dong:v.dong});
+    setMapCenter({lat:v.latitude,lng:v.longitude,zoomLevel:5});
+    // console.log(mapCenter);
+    // console.log(v);
   };
   const parkingAbleHandler = (e) => {
     setParkingAble(!parkingAble);
@@ -51,7 +69,7 @@ const SearchComponent = () => {
     setSido(0);
     setSigungu(0);
     setDong(0);
-    setPeopleNum(1);
+    setPeopleNum(2);
     setParkingAble(0);
     setParkingUnable(0);
   };
