@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 
 const AppContext = React.createContext();
 
@@ -6,9 +6,20 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSearchDetailSidebarOpen, setSearchDetailSidebarOpen] =
-    useState(false);
+    useState(true);
   const [isMapDetailOpen, setMapDetailOpen] = useState(false);
   const [isMyPageDetailOpen, setMyPageDetailOpen] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState({
+    sido: 11,
+    sigungu: 680,
+    dong: 101,
+  });
+  const [selectedboxAddress, setSelectedBoxAddress] = useState();
+  const [mapCenter, setMapCenter] = useState({
+    lng: 127.0447333,
+    lat: 37.5036883,
+    zoomLevel: 2,
+  });
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -51,10 +62,25 @@ const AppProvider = ({ children }) => {
   };
   const switchMyPageDetail = () => {
     if (isMyPageDetailOpen === true) {
-      setMyPageDetailOpen(false);
+      closeMyPageDetail();
     } else {
-      setMyPageDetailOpen(true);
+      openMyPageDetail();
     }
+  };
+  const setSelectedAddressDetail = (props) => {
+    setSelectedAddress({
+      sido: props.sido,
+      sigungu: props.sigungu,
+      dong: props.dong,
+    });
+    // console.log("in context : " + props.sido + props.sigungu +props.dong);
+  };
+  const setSelectedBoxAddressDetail = (props) => {
+    setSelectedBoxAddress({
+      sido: props.sido,
+      sigungu: props.sigungu,
+      dong: props.dong,
+    });
   };
 
   return (
@@ -64,6 +90,10 @@ const AppProvider = ({ children }) => {
         isMapDetailOpen,
         isSearchDetailSidebarOpen,
         isMyPageDetailOpen,
+        selectedAddress,
+        selectedboxAddress,
+        mapCenter,
+        setMapCenter,
         switchSearchDetail,
         openSearchDetail,
         closeSearchDetail,
@@ -73,6 +103,8 @@ const AppProvider = ({ children }) => {
         switchMyPageDetail,
         openModal,
         closeModal,
+        setSelectedAddressDetail,
+        setSelectedBoxAddressDetail,
       }}
     >
       {children}

@@ -24,10 +24,6 @@
   .sidebar {
     width: 372px;
   }
-
-  .detailsidebar {
-    width: 200px;
-  }
 }
 
 #searchTextbox {
@@ -45,37 +41,39 @@
 
 .detailsidebar {
   position: fixed;
-  top: 0;
-  left: 150px;
-  height: 100%;
+  top: 400px;
+  left: 400px;
+  height: 300px;
+  width: 900px;
   background: var(--clr-white);
   display: grid;
   grid-template-rows: auto 1fr auto;
   row-gap: 1rem;
   box-shadow: var(--clr-red-dark);
+  background-size: cover;
   /* transition: var(--transition); */
   /* transform: translate(-100%); */
 }
 
 .show-detailsidebar {
   transform: translate(0);
-  z-index: 1000;
+  z-index: 9999;
 }
 
 html {
   height: 100%;
 }
 div#root {
-  height: calc(100% - 138px);
+  height: 100%;
 }
 div .landing-page .landing-page__inner .map-container,
 div.landing-page .landing-page__inner,
 div.landing-page {
-  height: 100%;
+  height: 1000px;
 }
 
 .map {
-  height: 100%;
+  height: 1000px;
   margin-left: 372px;
 }
 .SearchComponent {
@@ -95,7 +93,12 @@ div.landing-page {
   margin-left: 447px;
 }
 
-#selectAddress select {
+#mainPageSelectAddress {
+  margin-left: 50px;
+}
+
+#selectAddress select,
+#mainPageSelectAddress select {
   width: 88px;
   height: 28px;
   border: 1px solid #c7c7c7;
@@ -148,6 +151,25 @@ div.landing-page {
 }
 
 #clear {
+  float: left;
+  margin-left: 18px;
+  width: 69px;
+  height: 23px;
+  left: calc(50% - 69px / 2 + 459.5px);
+  top: calc(50% - 23px / 2 - 422.5px);
+
+  background: #f5a200;
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 12px;
+  text-align: center;
+
+  color: #ffffff;
+}
+
+#searchButton {
   float: left;
   margin-left: 18px;
   width: 69px;
