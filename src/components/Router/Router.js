@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import MainPage from '../views/MainPage/MainPage';
-import LandingPage from '../views/LandingPage/LandingPage';
-import Page404 from '../views/Page404/Page404';
+import MainPage from "../views/MainPage/MainPage";
+import LandingPage from "../views/LandingPage/LandingPage";
+import Page404 from "../views/Page404/Page404";
 
 const Router = () => {
   return (

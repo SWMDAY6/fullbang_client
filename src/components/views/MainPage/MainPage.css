@@ -1,3 +1,11 @@
+html {
+  height: auto;
+}
+div#root {
+  height: auto;
+  overflow: auto;
+}
+
 body {
   background-color: #ffffff;
 }

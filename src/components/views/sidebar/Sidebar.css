@@ -1,69 +1,72 @@
 .accomodationImg {
-    width:138px;
-    height:163px;
-    float:left;
+  width: 138px;
+  height: 163px;
+  float: left;
 }
 
 .accomodationName {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 17px;
-    padding-top:18px;
-    text-align: left;
-    margin-left:7px;
-    color: #000000;
-    float:left;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 17px;
+  padding-top: 18px;
+  text-align: left;
+  margin-left: 7px;
+  color: #000000;
+  float: left;
 }
 
 .accomodationStar {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 23px;
-    color: #F49C00;
-    /*float:left;*/
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  color: #f49c00;
+  /*float:left;*/
 }
 
 .yanoljaPrice {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    text-align: left;
-    color: #545454;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: left;
+  color: #545454;
 }
 
 .yanoljaPrice img {
-    padding-left: 10px;
-    float:left;
+  padding-left: 10px;
+  float: left;
 }
 
 .yanoljaPrice div {
-    padding-right: 10px;
-    float:right;
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 17px;
-    /* identical to box height */
-    color: #F49C00;
+  padding-right: 10px;
+  float: right;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #f49c00;
 }
 
-
 .yeogiattaePrice {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    text-align: left;
-    color: #545454;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: left;
+  color: #545454;
 }
 
 .yeogiattaePrice img {
-    padding-left: 10px;
-    float:left;
+  padding-left: 10px;
+  float: left;
 }
 
 .yeogiattaePrice div {
-    padding-right: 10px;
-    float:right;
+  padding-right: 10px;
+  float: right;
+}
+
+.accomodationImage {
+  height: 100%;
 }

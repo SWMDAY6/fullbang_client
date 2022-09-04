@@ -1,13 +1,12 @@
-import React from 'react';
-import logo_icon from '../../../assets/logo_kor.png';
-import { Switch, Route, Link } from 'react-router-dom';
-import styled from 'styled-components';
+import logo_icon from "../../../assets/logo_kor.png";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const HeaderComponent = () => {
   return (
     <Header>
       <Link to="/">
-        <img src={logo_icon} />
+        <img src={logo_icon} alt="home" />
       </Link>
       <nav id="headernav">
         <Link to="/map">도움말</Link>
