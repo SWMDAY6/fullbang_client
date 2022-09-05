@@ -8,6 +8,20 @@ import { useState } from "react";
 
 const Sidebar = (props: any) => {
   const [keyword, setKeyword] = useState("");
+  const [placeList, setPlaceList] = useState([
+    // {
+    //   addressCode: "123",
+    //   addressFullName: "",
+    //   latitude: 0,
+    //   longitude: 0,
+    //   placeId: 0,
+    //   placeName: "",
+    //   placeType: "",
+    //   region1DepthName: "",
+    //   region2DepthName: "",
+    //   region3DepthName: "",
+    // },
+  ]);
 
   const onKeyPress = (e: any) => {
     if (e.key === "Enter") {
@@ -15,7 +29,8 @@ const Sidebar = (props: any) => {
       axios
         .get(url)
         .then(function (response) {
-          console.log("URL : ", url, "response:", response);
+          // console.log("URL : ", url, "response:", response);
+          setPlaceList(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -38,7 +53,15 @@ const Sidebar = (props: any) => {
         onChange={handleChange}
       />
       <AccommodationWrap>
-        {props.AccomodationList.map((data: any) => {
+        {placeList.map((data: any) => {
+          console.log(data);
+          return (
+            <AccommodationBox>
+              <div className="accomodationName">{data.placeName} </div>
+            </AccommodationBox>
+          );
+        })}
+        {/* {props.AccomodationList.map((data: any) => {
           return (
             <AccommodationBox>
               <img
@@ -50,7 +73,7 @@ const Sidebar = (props: any) => {
               <div className="accomodationName">{data.name}</div>
             </AccommodationBox>
           );
-        })}
+        })} */}
       </AccommodationWrap>
     </aside>
   );
