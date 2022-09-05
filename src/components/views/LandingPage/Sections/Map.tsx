@@ -9,11 +9,6 @@ import motel_marker from "../../../../assets/motel_marker.png";
 import pension_marker from "../../../../assets/pension_marker.png";
 import camping_marker from "../../../../assets/camping_marker.png";
 import price_marker from "../../../../assets/price_marker.png";
-import {
-  bubjungdong_sido,
-  bubjungdong_sigungu,
-  bubjungdong_dong,
-} from "../../../helper/bubjungdong";
 import axiosGetinrange from "../../../helper/axiosGetinrange";
 
 // head에 작성한 Kakao API 불러오기
@@ -130,7 +125,7 @@ const Map = (props: any) => {
         //   }
         // });
       } else if (level <= 6) {
-        // 동 평균
+        // 동 평균  
         const url = "http://fullbang.kr:8080/product/inRange/marketPrice/3";
         const now = new Date();
         const date =
