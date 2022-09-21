@@ -10,6 +10,7 @@ import pension_marker from "../../../../assets/pension_marker.png";
 import camping_marker from "../../../../assets/camping_marker.png";
 import price_marker from "../../../../assets/price_marker.png";
 import axiosGetinrange from "../../../helper/axiosGetinrange";
+import axiosGetplace from "../../../helper/axiosGetplace";
 
 // head에 작성한 Kakao API 불러오기
 const { kakao } = window as any;
@@ -100,32 +101,37 @@ const Map = (props: any) => {
     };
     const map = new kakao.maps.Map(mapContainer, mapOption);
 
-    // props.AccomodationList.map((data: any, idx: any) => {
-    //   if (data.placeType != "UNKNOWN") {
-    //     let placePosition = new kakao.maps.LatLng(
-    //       data.latitude,
-    //       data.longitude
-    //     );
-    //     addMarker(placePosition, idx, data.placeType, data.price);
-    //   }
-    // });
     const drawMarker = async () => {
       var level = map.getLevel();
       console.log("maplevel", level);
       removeMarker();
       if (level <= 3) {
-        // 개별 숙소
-        // props.AccomodationList.map((data: any, idx: any) => {
-        //   if (data.placeType != "UNKNOWN") {
-        //     let placePosition = new kakao.maps.LatLng(
-        //       data.latitude,
-        //       data.longitude
-        //     );
-        //     addMarker(placePosition, idx, data.placeType, data.price);
-        //   }
-        // });
+        const url = "http://fullbang.kr:8080/places";
+        const now = new Date();
+        const date =
+          now.getFullYear() +
+          "-" +
+          ("00" + (now.getMonth() + 1)).slice(-2) +
+          "-" +
+          ("00" + (now.getDate() - 1)).slice(-2);
+        const params = {
+          placeType: "MOTEL",
+          inputDate: date,
+          latitudeStart: map.getBounds().getSouthWest().getLat(),
+          latitudeEnd: map.getBounds().getNorthEast().getLat(),
+          longitudeStart: map.getBounds().getSouthWest().getLng(),
+          longitudeEnd: map.getBounds().getNorthEast().getLng(),
+        };
+        const response = await axiosGetplace(url, params);
+        response.data.map((data: any, idx: number) => {
+          let placePosition = new kakao.maps.LatLng(
+            data.latitude,
+            data.longitude
+          );
+          addMarker(placePosition, idx, "MOTEL", Math.floor(data.mean));
+        });
       } else if (level <= 6) {
-        // 동 평균  
+        // 동 평균
         const url = "http://fullbang.kr:8080/product/inRange/marketPrice/3";
         const now = new Date();
         const date =
@@ -233,13 +239,8 @@ const Map = (props: any) => {
     };
     kakao.maps.event.addListener(map, "dragend", function () {
       locationToAddress(map.getCenter(), map.getLevel());
-      // console.log(map.getBounds());
       console.log("drag_end", map.getLevel());
       console.log(map.getBounds());
-      // console.log(
-      //   map.getBounds().getSouthWest().getLat(),
-      //   map.getBounds().getSouthWest().getLng()
-      // );
       removeMarker();
       drawMarker();
     });
@@ -273,20 +274,23 @@ const Map = (props: any) => {
           position: position,
           image: markerImage,
         });
+      const priceThousandComma = price
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       if (marker_type == "PRICE") {
         var content =
           '<div class ="label">' +
           '<span class="center" style="color:black">' +
           name +
           "₩" +
-          price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+          priceThousandComma +
           "</span>" +
           "</div>";
       } else {
         var content =
           '<div class ="label">' +
           '<span class="center" style="color:white">₩' +
-          price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+          priceThousandComma +
           "</span>" +
           "</div>";
       }

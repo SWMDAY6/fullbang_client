@@ -26,8 +26,11 @@ const Sidebar = (props: any) => {
   const onKeyPress = (e: any) => {
     if (e.key === "Enter") {
       const url = "http://fullbang.kr:8080/search/" + keyword;
+      const params = {
+        inputData: "2022-09-16",
+      };
       axios
-        .get(url)
+        .get(url, { params })
         .then(function (response) {
           // console.log("URL : ", url, "response:", response);
           setPlaceList(response.data);

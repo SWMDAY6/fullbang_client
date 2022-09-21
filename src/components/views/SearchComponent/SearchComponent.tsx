@@ -36,9 +36,14 @@ const SearchComponent = () => {
       sigungu: null,
       dong: null,
     });
-    setMapCenter({ lat: v?.latitude, lng: v?.longitude, zoomLevel: 10 });
+    setMapCenter({
+      lat: v?.latitude,
+      lng: v?.longitude,
+      zoomLevel: zoomLevelSido,
+    });
   };
-
+  const zoomLevelSido = 10,
+    zoomLevelSigungu = 7;
   const handleSigungu = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSigungu(e.target.value);
     setSelectedAddressDetail({
@@ -78,7 +83,9 @@ const SearchComponent = () => {
     setMapCenter({ lat: v?.latitude, lng: v?.longitude, zoomLevel: 5 });
   };
   const parkingAbleHandler = () => {
-    setParkingAble(!parkingAble);
+    // setParkingAble(!parkingAble);
+    if (parkingAble == true) setParkingAble(false);
+    else setParkingAble(true);
   };
   const parkingUnableHandler = () => {
     setParkingUnable(!parkingUnable);

@@ -48,7 +48,7 @@ const Main = () => {
   const [average, setAverage] = useState(averageTemp);
 
   const getAverageValue = async (props: string) => {
-    const now = new Date();
+    // const now = new Date();
     const url = "http://fullbang.kr:8080/product/" + props + "/marketPrice?";
     // const date =
     //   now.getFullYear() +
