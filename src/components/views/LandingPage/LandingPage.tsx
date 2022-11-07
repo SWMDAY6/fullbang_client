@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import HeaderComponent from "../HeaderComponent/HeaderComponent";
 import SearchComponent from "../SearchComponent/SearchComponent";
 import Sidebar from "../sidebar/Sidebar";

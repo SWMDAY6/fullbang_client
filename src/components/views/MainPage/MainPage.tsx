@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import background_hotel from "../../../assets/background_hotel.png";
@@ -8,16 +7,12 @@ import pension_icon from "../../../assets/pension_icon.png";
 import hotel_icon from "../../../assets/hotel_icon.png";
 import map_icon from "../../../assets/map_icon.png";
 import logo_copyright from "../../../assets/logo_copyright.png";
-import filter_icon from "../../../assets/filter_icon.png";
-import place_icon from "../../../assets/place_icon.png";
 import "./MainPage.css";
 import HeaderComponent from "../HeaderComponent/HeaderComponent";
 import axiosGetAverageValue from "../../helper/axiosGetAverageValue";
-import MainPageSearchComponent from "./MainPageSearchComponent";
-import { env } from "process";
 
 const Main = () => {
-  const [address, setAddress] = useState("서울시 강남구 역삼동");
+  const [address] = useState("서울시 강남구 역삼동");
   const placeTypeList = ["MOTEL", "HOTEL", "PENSION", "CAMPING"];
 
   let averageTemp = [
@@ -51,7 +46,7 @@ const Main = () => {
   const getAverageValue = async (props: string) => {
     // const now = new Date();
     const url =
-      "http://api.fullbang.kr:8080" + "/product/" + props + "/marketPrice?";
+      "http://api.fullbang.kr:8080/product/" + props + "/marketPrice?";
     // const date =
     //   now.getFullYear() +
     //   "-" +

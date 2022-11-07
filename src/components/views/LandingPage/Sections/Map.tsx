@@ -31,7 +31,6 @@ const Map = () => {
     selectedboxAddress,
     switchMapDetail,
     setProductLists,
-    setSidebarMapDetailId,
     setSidebarMapDetail,
   } = useGlobalContext();
 
@@ -255,12 +254,10 @@ const Map = () => {
       locationToAddress(map.getCenter(), map.getLevel());
       console.log("drag_end", map.getLevel());
       console.log(map.getBounds());
-      // removeMarker();
       drawMarker();
     });
     kakao.maps.event.addListener(map, "zoom_changed", function () {
       console.log("zoom_changed", map.getLevel());
-      // removeMarker();
       drawMarker();
     });
 
@@ -337,6 +334,7 @@ const Map = () => {
 
     // 지도에 확대 축소 컨트롤을 생성한다
     const zoomControl = new kakao.maps.ZoomControl();
+    drawMarker();
 
     // 지도의 우측에 확대 축소 컨트롤을 추가한다
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
