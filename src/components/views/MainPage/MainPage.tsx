@@ -14,6 +14,7 @@ import "./MainPage.css";
 import HeaderComponent from "../HeaderComponent/HeaderComponent";
 import axiosGetAverageValue from "../../helper/axiosGetAverageValue";
 import MainPageSearchComponent from "./MainPageSearchComponent";
+import { env } from "process";
 
 const Main = () => {
   const [address, setAddress] = useState("서울시 강남구 역삼동");
@@ -49,7 +50,8 @@ const Main = () => {
 
   const getAverageValue = async (props: string) => {
     // const now = new Date();
-    const url = "http://fullbang.kr:8080/product/" + props + "/marketPrice?";
+    const url =
+      "http://api.fullbang.kr:8080" + "/product/" + props + "/marketPrice?";
     // const date =
     //   now.getFullYear() +
     //   "-" +
@@ -84,32 +86,30 @@ const Main = () => {
     <>
       <HeaderComponent />
       <Wrapper>
-        <MainWrap>
-          <MainPageSearchComponent />
-        </MainWrap>
+        <MainWrap>{/* <MainPageSearchComponent /> */}</MainWrap>
       </Wrapper>
       <ButtonWrap>
         <Link to="/map">
           <span className="buttonClass">
-            <img src={map_icon} />
+            <img src={map_icon} alt="" />
             <div>지 도</div>
           </span>
         </Link>
         <Link to="/map">
           <span className="buttonClass">
-            <img src={motel_icon} />
+            <img src={motel_icon} alt="" />
             <div>모 텔</div>
           </span>
         </Link>
         <Link to="/map">
           <span className="buttonClass">
-            <img src={hotel_icon} />
+            <img src={hotel_icon} alt="" />
             <div>호 텔</div>
           </span>
         </Link>
         <Link to="/map">
           <span className="buttonClass">
-            <img src={pension_icon} />
+            <img src={pension_icon} alt="" />
             <div>펜 션</div>
           </span>
         </Link>
@@ -150,7 +150,7 @@ const Main = () => {
         </div>
       </AverageWrap>
       <Footer>
-        <img id="logo_copyright" src={logo_copyright} />
+        <img id="logo_copyright" src={logo_copyright} alt="" />
         <div id="copyright">
           <div>
             주소. 서울특별시 강남구 테헤란로 311 아남타워빌딩, 7층 SW마에스트로

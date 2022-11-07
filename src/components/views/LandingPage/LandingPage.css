@@ -41,18 +41,16 @@
 
 .detailsidebar {
   position: fixed;
-  top: 400px;
+  top: calc(100%-300px);
   left: 400px;
   height: 300px;
-  width: 900px;
+  width: 600px;
   background: var(--clr-white);
   display: grid;
   grid-template-rows: auto 1fr auto;
   row-gap: 1rem;
   box-shadow: var(--clr-red-dark);
   background-size: cover;
-  /* transition: var(--transition); */
-  /* transform: translate(-100%); */
 }
 
 .show-detailsidebar {
@@ -63,9 +61,9 @@
 html {
   height: 100%;
 }
-div#root {
+/* div#root {
   height: 100%;
-}
+} */
 div .landing-page .landing-page__inner .map-container,
 div.landing-page .landing-page__inner,
 div.landing-page {
