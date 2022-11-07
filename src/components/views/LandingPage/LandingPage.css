@@ -41,10 +41,10 @@
 
 .detailsidebar {
   position: fixed;
-  top: calc(100%-300px);
+  bottom: 10px;
   left: 400px;
-  height: 300px;
-  width: 600px;
+  height: 350px;
+  width: 1000px;
   background: var(--clr-white);
   display: grid;
   grid-template-rows: auto 1fr auto;

@@ -1,15 +1,11 @@
 import styled from "styled-components";
 import "./Sidebar.css";
-import yanolja from "../../../assets/logo_yanolja.png";
-import yeogiattae from "../../../assets/logo_yeogiattae.png";
-import { AccomodationList } from "../LandingPage/LandingPage";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGlobalContext } from "../../../context";
 
 const Sidebar = (props: any) => {
   const [keyword, setKeyword] = useState("");
-  const [placeList, setPlaceList] = useState([]);
   const { productList, setProductLists } = useGlobalContext();
 
   const onKeyPress = (e: any) => {
@@ -21,7 +17,6 @@ const Sidebar = (props: any) => {
       axios
         .get(url, { params })
         .then(function (response) {
-          // console.log("URL : ", url, "response:", response);
           setProductLists(response.data);
         })
         .catch(function (error) {
@@ -107,10 +102,7 @@ const AcoomodationName = styled.div`
   line-height: 17px;
 `;
 
-const AccomodationHr = styled.hr`
-  width: 180px;
-  align: center;
-`;
+const AccomodationHr = styled.hr``;
 
 const AccomodationPrice = styled.div`
   font-style: normal;

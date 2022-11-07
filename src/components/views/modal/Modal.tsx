@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import { useGlobalContext } from "../../../context";
 
 const Modal = (props: any) => {
-  const { isModalOpen, ModalName, closeModal } = useGlobalContext();
+  const { isModalOpen, closeModal } = useGlobalContext();
 
   return (
     <div

@@ -28,6 +28,7 @@ const AppProvider = ({ children }) => {
     datasets: [],
     yanolja: [],
   });
+  const [sidebarMapDetailRawData, setSidebarMapDetailRawData] = useState([]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -101,55 +102,8 @@ const AppProvider = ({ children }) => {
     const response = await axiosGetRoomDetail(url, params);
     console.log("setSidebarMapDetail");
     console.log(response.data[0]);
-    let label = [];
-    let yeoggiatte = [];
-    let yanolja = [];
-    response.data[0].stayPriceList.map((data, idx) => {
-      label.push(data.checkInDate);
-      if (data.platform == "YEOGIEOTTAE") {
-        yeoggiatte.push(data.price);
-        yanolja.push(null);
-      } else {
-        yanolja.push(data.price);
-        yeoggiatte.push(null);
-      }
-    });
-    console.log(yeoggiatte);
-    console.log(label);
-    setSidebarMapDetailId(name + "-" + response.data[0].roomName);
-    setSidebarMapDetailData({
-      labels: label,
-      datasets: [
-        {
-          label: "야놀자",
-          backgroundColor: "rgba(194, 116, 161, 0.5)",
-          borderColor: "rgb(194, 116, 161)",
-          data: yanolja,
-        },
-        {
-          label: "여기어때",
-          backgroundColor: "rgba(71, 225, 167, 0.5)",
-          borderColor: "rgb(71, 225, 167)",
-          data: yeoggiatte,
-        },
-      ],
-    });
-
-    // labels: sidebarMapDetailData.label,
-    // datasets: [
-    //   {
-    //     label: "야놀자",
-    //     // backgroundColor: "rgba(194, 116, 161, 0.5)",
-    //     borderColor: "rgb(194, 116, 161)",
-    //     data: sidebarMapDetailData.yanolja,
-    //   },
-    //   {
-    //     label: "여기어때",
-    //     // backgroundColor: "rgba(71, 225, 167, 0.5)",
-    //     borderColor: "rgb(71, 225, 167)",
-    //     data: sidebarMapDetailData.yeogiatte,
-    //   },
-    // ],
+    setSidebarMapDetailRawData(response.data);
+    setSidebarMapDetailId(name);
   };
 
   return (
@@ -165,6 +119,7 @@ const AppProvider = ({ children }) => {
         productList,
         sidebarMapDetailId,
         sidebarMapDetailData,
+        sidebarMapDetailRawData,
         setProductLists,
         setMapCenter,
         switchSearchDetail,
@@ -187,9 +142,7 @@ const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
-// custom hook
-// 다른 component에서 매번 useContext(AppContext)를
-// 사용하지 않고 useGlobalContext으로 사용하기 (앞에 use를 사용하지 않으면 error)
+
 export const useGlobalContext = () => {
   return useContext(AppContext);
 };
