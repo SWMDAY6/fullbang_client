@@ -1,7 +1,6 @@
 import axios from "axios";
 
 type params = {
-  placeType: string;
   inputDate: string;
   latitudeStart: number;
   latitudeEnd: number;

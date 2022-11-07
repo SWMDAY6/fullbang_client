@@ -4,36 +4,25 @@ import yanolja from "../../../assets/logo_yanolja.png";
 import yeogiattae from "../../../assets/logo_yeogiattae.png";
 import { AccomodationList } from "../LandingPage/LandingPage";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "../../../context";
 
 const Sidebar = (props: any) => {
   const [keyword, setKeyword] = useState("");
-  const [placeList, setPlaceList] = useState([
-    // {
-    //   addressCode: "123",
-    //   addressFullName: "",
-    //   latitude: 0,
-    //   longitude: 0,
-    //   placeId: 0,
-    //   placeName: "",
-    //   placeType: "",
-    //   region1DepthName: "",
-    //   region2DepthName: "",
-    //   region3DepthName: "",
-    // },
-  ]);
+  const [placeList, setPlaceList] = useState([]);
+  const { productList, setProductLists } = useGlobalContext();
 
   const onKeyPress = (e: any) => {
     if (e.key === "Enter") {
-      const url = "http://fullbang.kr:8080/search/" + keyword;
+      const url = "http://api.fullbang.kr:8080/search/" + keyword;
       const params = {
-        inputData: "2022-09-16",
+        inputDate: "2022-09-16",
       };
       axios
         .get(url, { params })
         .then(function (response) {
           // console.log("URL : ", url, "response:", response);
-          setPlaceList(response.data);
+          setProductLists(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -46,6 +35,7 @@ const Sidebar = (props: any) => {
 
     console.log("value is:", e.target.value);
   };
+
   return (
     <aside className="sidebar show-sidebar">
       <input
@@ -56,27 +46,28 @@ const Sidebar = (props: any) => {
         onChange={handleChange}
       />
       <AccommodationWrap>
-        {placeList.map((data: any) => {
+        {productList.map((data: any) => {
           console.log(data);
           return (
             <AccommodationBox>
-              <div className="accomodationName">{data.placeName} </div>
+              <AcoomodationImage>
+                <img
+                  className="accomodationImg"
+                  alt="숙소 사진"
+                  src={data.placeImage}
+                />
+              </AcoomodationImage>
+
+              <AcoomodationName>{data.placeName} </AcoomodationName>
+              <AccomodationHr />
+              <AccomodationPrice>
+                {data.lowestPrice
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </AccomodationPrice>
             </AccommodationBox>
           );
         })}
-        {/* {props.AccomodationList.map((data: any) => {
-          return (
-            <AccommodationBox>
-              <img
-                className="accomodationImg"
-                alt="숙소 사진"
-                src={data.img_src}
-              />
-
-              <div className="accomodationName">{data.name}</div>
-            </AccommodationBox>
-          );
-        })} */}
       </AccommodationWrap>
     </aside>
   );
@@ -95,6 +86,39 @@ const AccommodationBox = styled.div`
   width: 349px;
   margin-top: 9px;
   margin-left: 10px;
+  clear: both;
+`;
+
+const AcoomodationImage = styled.div`
+  height: 100%;
+  width: 138px;
+  margin-top: 0px;
+  margin-left: 0px;
+  float: left;
+`;
+
+const AcoomodationName = styled.div`
+  width: 100%;
+  margin-top: 18px;
+  margin-left: 145px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 17px;
+`;
+
+const AccomodationHr = styled.hr`
+  width: 180px;
+  align: center;
+`;
+
+const AccomodationPrice = styled.div`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 17px;
+  text-align: right;
+  color: #f49c00;
 `;
 
 export default Sidebar;

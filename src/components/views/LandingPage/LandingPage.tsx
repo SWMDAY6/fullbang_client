@@ -30,12 +30,12 @@ const LandingPage = (): JSX.Element => {
       <HeaderComponent />
       <SearchComponent />
       <Sidebar />
+      <SidebarMapDetail />
       <div className="landing-page">
         <div className="landing-page__inner">
           <Map />
         </div>
       </div>
-      {/* <SidebarMapDetail /> */}
     </>
   );
 };

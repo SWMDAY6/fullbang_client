@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import axiosGetRoomDetail from "./components/helper/axiosGetRoomDetail";
 
 const AppContext = React.createContext();
 
@@ -19,6 +20,13 @@ const AppProvider = ({ children }) => {
     lng: 127.0447333,
     lat: 37.5036883,
     zoomLevel: 2,
+  });
+  const [productList, setProductList] = useState([]);
+  const [sidebarMapDetailId, setSidebarMapDetailId] = useState();
+  const [sidebarMapDetailData, setSidebarMapDetailData] = useState({
+    labels: [],
+    datasets: [],
+    yanolja: [],
   });
 
   const openModal = () => {
@@ -82,6 +90,67 @@ const AppProvider = ({ children }) => {
       dong: props.dong,
     });
   };
+  const setProductLists = (props) => {
+    setProductList(props);
+  };
+  const setSidebarMapDetail = async (idx, name) => {
+    const params = {
+      checkInDate: "2022-11-07",
+    };
+    const url = "http://fullbang.kr:8080/room/" + idx;
+    const response = await axiosGetRoomDetail(url, params);
+    console.log("setSidebarMapDetail");
+    console.log(response.data[0]);
+    let label = [];
+    let yeoggiatte = [];
+    let yanolja = [];
+    response.data[0].stayPriceList.map((data, idx) => {
+      label.push(data.checkInDate);
+      if (data.platform == "YEOGIEOTTAE") {
+        yeoggiatte.push(data.price);
+        yanolja.push(null);
+      } else {
+        yanolja.push(data.price);
+        yeoggiatte.push(null);
+      }
+    });
+    console.log(yeoggiatte);
+    console.log(label);
+    setSidebarMapDetailId(name + "-" + response.data[0].roomName);
+    setSidebarMapDetailData({
+      labels: label,
+      datasets: [
+        {
+          label: "야놀자",
+          backgroundColor: "rgba(194, 116, 161, 0.5)",
+          borderColor: "rgb(194, 116, 161)",
+          data: yanolja,
+        },
+        {
+          label: "여기어때",
+          backgroundColor: "rgba(71, 225, 167, 0.5)",
+          borderColor: "rgb(71, 225, 167)",
+          data: yeoggiatte,
+        },
+      ],
+    });
+
+    // labels: sidebarMapDetailData.label,
+    // datasets: [
+    //   {
+    //     label: "야놀자",
+    //     // backgroundColor: "rgba(194, 116, 161, 0.5)",
+    //     borderColor: "rgb(194, 116, 161)",
+    //     data: sidebarMapDetailData.yanolja,
+    //   },
+    //   {
+    //     label: "여기어때",
+    //     // backgroundColor: "rgba(71, 225, 167, 0.5)",
+    //     borderColor: "rgb(71, 225, 167)",
+    //     data: sidebarMapDetailData.yeogiatte,
+    //   },
+    // ],
+  };
 
   return (
     <AppContext.Provider
@@ -93,6 +162,10 @@ const AppProvider = ({ children }) => {
         selectedAddress,
         selectedboxAddress,
         mapCenter,
+        productList,
+        sidebarMapDetailId,
+        sidebarMapDetailData,
+        setProductLists,
         setMapCenter,
         switchSearchDetail,
         openSearchDetail,
@@ -105,6 +178,9 @@ const AppProvider = ({ children }) => {
         closeModal,
         setSelectedAddressDetail,
         setSelectedBoxAddressDetail,
+        setSidebarMapDetailId,
+        setSidebarMapDetail,
+        setSidebarMapDetailData,
       }}
     >
       {children}

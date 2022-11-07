@@ -1,56 +1,50 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../../context";
+import Card from "react-bootstrap/Card";
+
+import { Line } from "react-chartjs-2";
+import { CDBContainer } from "cdbreact";
+
 // import LineChart from "../../helper/LineChart";
 
 const SidebarMapDetail = () => {
-  const { isMapDetailOpen } = useGlobalContext();
-  // const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75]);
-  const data = [
-    {
-      date: "1/1/2017",
-      high: 46,
-      avg: 44,
-      low: 41,
-    },
-    {
-      date: "1/2/2017",
-      high: 39,
-      avg: 38,
-      low: 37,
-    },
-    {
-      date: "1/3/2017",
-      high: 43,
-      avg: 41,
-      low: 39,
-    },
-    {
-      date: "1/4/2017",
-      high: 52,
-      avg: 44,
-      low: 34,
-    },
-    {
-      date: "1/5/2017",
-      high: 33,
-      avg: 30,
-      low: 27,
-    },
-  ];
+  const { isMapDetailOpen, sidebarMapDetailId, sidebarMapDetailData } =
+    useGlobalContext();
+  // let [data] = [];
 
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   [data] = useState({
+  //     labels: sidebarMapDetailData.label,
+  //     datasets: [
+  //       {
+  //         label: "야놀자",
+  //         // backgroundColor: "rgba(194, 116, 161, 0.5)",
+  //         borderColor: "rgb(194, 116, 161)",
+  //         data: sidebarMapDetailData.yanolja,
+  //       },
+  //       {
+  //         label: "여기어때",
+  //         // backgroundColor: "rgba(71, 225, 167, 0.5)",
+  //         borderColor: "rgb(71, 225, 167)",
+  //         data: sidebarMapDetailData.yeogiatte,
+  //       },
+  //     ],
+  //   });
+  // }, [sidebarMapDetailData]);
 
   return (
-    <aside
+    <Card
       className={`${
         isMapDetailOpen ? "detailsidebar show-detailsidebar" : "detailsidebar"
       }`}
-      // style={{ backgroundImage: background_modal }}
     >
-      {/* <div id="chart" /> */}
-      {/* <LineChart data={data} /> */}
-      {/* <div className="sidebar-header">지도</div> */}
-    </aside>
+      <Card.Body>
+        <CDBContainer>
+          <h3>{sidebarMapDetailId}</h3>
+          <Line data={sidebarMapDetailData} options={{ responsive: true }} />
+        </CDBContainer>
+      </Card.Body>
+    </Card>
   );
 };
 
