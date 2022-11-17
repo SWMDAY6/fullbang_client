@@ -31,9 +31,11 @@ const AppProvider = ({ children }) => {
   const [sidebarMapDetailRawData, setSidebarMapDetailRawData] = useState([]);
 
   const openModal = () => {
+    console.log("modalopen");
     setIsModalOpen(true);
   };
   const closeModal = () => {
+    console.log("modalclose");
     setIsModalOpen(false);
   };
   const openSearchDetail = () => {

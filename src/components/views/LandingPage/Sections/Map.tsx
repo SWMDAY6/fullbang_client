@@ -291,11 +291,14 @@ const Map = () => {
       if (marker_type === "PRICE") {
         var content =
           '<div class ="label">' +
-          '<span class="center" style="color:black">' +
+          '<div class="center" style="color:black;text-align:center;line-height:1.5em;">' +
           name +
+          "</div><div>" +
+          // "<br/>" +
+          '<div class="center" style="color:black;text-align:center;line-height:0.5em;">' +
           "₩" +
           priceThousandComma +
-          "</span>" +
+          "</div>" +
           "</div>";
       } else {
         var content =

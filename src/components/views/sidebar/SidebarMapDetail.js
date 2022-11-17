@@ -10,12 +10,12 @@ import logo_yeogiattae from "../../../assets/logo_yeogiattae.png";
 
 const SidebarMapDetail = () => {
   const {
-    isMapDetailOpen,
     sidebarMapDetailId,
     sidebarMapDetailData,
     switchMapDetail,
     sidebarMapDetailRawData,
     setSidebarMapDetailData,
+    isMapDetailOpen,
   } = useGlobalContext();
   const [selectItem, setSelectItem] = useState(-1);
 
@@ -24,33 +24,39 @@ const SidebarMapDetail = () => {
     let label = [];
     let yeoggiatte = [];
     let yanolja = [];
-    props.stayPriceList.map((data) => {
+    props.stayPriceListYanolja.map((data) => {
       label.push(data.checkInDate);
-      if (data.platform === "YEOGIEOTTAE") {
-        yeoggiatte.push(data.price);
-        yanolja.push(null);
-      } else {
-        yeoggiatte.push(null);
-        yanolja.push(data.price);
-      }
+      yanolja.push(data.price);
     });
-    setSidebarMapDetailData({
-      labels: label,
-      datasets: [
-        {
-          label: "야놀자",
-          backgroundColor: "rgba(194, 116, 161, 0.5)",
-          borderColor: "rgb(194, 116, 161)",
-          data: yanolja,
-        },
-        {
-          label: "여기어때",
-          backgroundColor: "rgba(71, 225, 167, 0.5)",
-          borderColor: "rgb(71, 225, 167)",
-          data: yeoggiatte,
-        },
-      ],
+    props.stayPriceListYeogieottae.map((data) => {
+      label.push(data.checkInDate);
+      yeoggiatte.push(data.price);
     });
+    if (yeoggiatte !== []) {
+      setSidebarMapDetailData({
+        labels: label,
+        datasets: [
+          {
+            label: "여기어때",
+            backgroundColor: "rgba(71, 225, 167, 0.5)",
+            borderColor: "rgb(71, 225, 167)",
+            data: yeoggiatte,
+          },
+        ],
+      });
+    } else if (yanolja !== []) {
+      setSidebarMapDetailData({
+        labels: label,
+        datasets: [
+          {
+            label: "야놀자",
+            backgroundColor: "rgba(194, 116, 161, 0.5)",
+            borderColor: "rgb(194, 116, 161)",
+            data: yanolja,
+          },
+        ],
+      });
+    }
     setSelectItem(idx);
     console.log("selectItem", selectItem);
   };
@@ -61,14 +67,63 @@ const SidebarMapDetail = () => {
     setSelectItem(-1);
   };
   return (
-    <Card
-      className={`${
-        isMapDetailOpen ? "detailsidebar show-detailsidebar" : "detailsidebar"
-      }`}
+    <div
+      className={
+        isMapDetailOpen === true
+          ? "detailsidebar show-detailsidebar"
+          : "detailsidebar"
+      }
     >
+      <CloseButton onClick={CloseSidebarDetail} />
       <Card.Body>
-        <h4>{sidebarMapDetailId}</h4>
-        <CloseButton onClick={CloseSidebarDetail} />
+        <AccomodationName>
+          <AccomodationImg />
+          <h4>{sidebarMapDetailId}</h4>
+        </AccomodationName>
+        <ChartDetailTop>
+          <ChartDetailImg
+            src={
+              selectItem === -1
+                ? room
+                : // : sidebarMapDetailRawData[selectItem].imgUrl[0]
+                  room
+            }
+          />
+          <ChartDetailName>
+            {selectItem !== -1
+              ? sidebarMapDetailRawData[selectItem].roomName
+              : "-"}
+          </ChartDetailName>
+          <br />
+          <ChartDetailAvg>
+            <ChartDetailDayAvg>
+              평일 요금 평균
+              {selectItem !== -1
+                ? Number.parseInt(
+                    (sidebarMapDetailRawData[selectItem]
+                      .weekdayStayAveragePrice *
+                      10) /
+                      10
+                  )
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
+                : "-"}
+            </ChartDetailDayAvg>
+            <ChartDetailWeekendAvg>
+              주말 요금 평균
+              {selectItem !== -1
+                ? Number.parseInt(
+                    (sidebarMapDetailRawData[selectItem]
+                      .weekendStayAveragePrice *
+                      10) /
+                      10
+                  )
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
+                : "-"}
+            </ChartDetailWeekendAvg>
+          </ChartDetailAvg>
+        </ChartDetailTop>
         <RoomDetail>
           {sidebarMapDetailRawData.map((data, idx) => {
             console.log(data);
@@ -78,7 +133,8 @@ const SidebarMapDetail = () => {
                 selected={idx === selectItem}
               >
                 <RoomDetailBoxImg
-                  src={data.imgUrl[0] === null ? { room } : data.imgUrl[0]}
+                  src={room}
+                  // src={data.imgUrl[0] === null ? room : data.imgUrl[0]}
                 ></RoomDetailBoxImg>
                 <RoomDetailBoxName>{data.roomName}</RoomDetailBoxName>
                 <RoomDetailBoxPrice>
@@ -93,42 +149,6 @@ const SidebarMapDetail = () => {
           })}
         </RoomDetail>
         <ChartDetail>
-          <ChartDetailImg
-            src={
-              selectItem === -1
-                ? { room }
-                : sidebarMapDetailRawData[selectItem].imgUrl[0]
-            }
-          ></ChartDetailImg>
-          <ChartDetailName>
-            {selectItem !== -1
-              ? sidebarMapDetailRawData[selectItem].roomName
-              : "-"}
-          </ChartDetailName>
-          <ChartDetailDayAvg>
-            평일 요금 평균
-            {selectItem !== -1
-              ? Number.parseInt(
-                  (sidebarMapDetailRawData[selectItem].weekdayStayAveragePrice *
-                    10) /
-                    10
-                )
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
-              : "-"}
-          </ChartDetailDayAvg>
-          <ChartDetailWeekendAvg>
-            주말 요금 평균
-            {selectItem !== -1
-              ? Number.parseInt(
-                  (sidebarMapDetailRawData[selectItem].weekendStayAveragePrice *
-                    10) /
-                    10
-                )
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
-              : "-"}
-          </ChartDetailWeekendAvg>
           <Line
             data={sidebarMapDetailData}
             width={600}
@@ -137,31 +157,48 @@ const SidebarMapDetail = () => {
           />
         </ChartDetail>
       </Card.Body>
-    </Card>
+    </div>
   );
 };
 
 export default SidebarMapDetail;
 
 const RoomDetail = styled.div`
-  width: 300px;
+  width: 330px;
   height: 300px;
   float: left;
   overflow: auto;
 `;
 
+const AccomodationName = styled.div`
+  width: 330px;
+  float: left;
+`;
+const AccomodationImg = styled.img``;
+
 const ChartDetail = styled.div`
-  width: 600px;
+  width: 550px;
   height: 300px;
   float: left;
 `;
-
-const ChartDetailName = styled.div`
-  width: 600px;
+const ChartDetailTop = styled.div`
+  width: 550px;
+  float: left;
+  column-count: 2;
+`;
+const ChartDetailName = styled.span`
+  width: 300px;
+  float: left;
 `;
 
 const ChartDetailImg = styled.img`
   height: 50px;
+  float: left;
+`;
+
+const ChartDetailAvg = styled.div`
+  height: 50px;
+  float: left;
 `;
 
 const ChartDetailDayAvg = styled.div``;

@@ -3,7 +3,7 @@ html {
 }
 div#root {
   height: auto;
-  overflow: auto;
+  overflow: hidden;
 }
 
 body {

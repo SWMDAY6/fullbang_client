@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import background_hotel from "../../../assets/background_hotel.png";
@@ -98,8 +98,10 @@ const Main = () => {
     }
     setAverage(averageTemp2);
   };
-
-  getAverageValue("11680101");
+  
+  useEffect(() => {
+    getAverageValue("11680101");
+  }, []);
 
   return (
     <>
