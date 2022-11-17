@@ -1,82 +1,149 @@
 import { useGlobalContext } from "../../../context";
 import Card from "react-bootstrap/Card";
-
+import CloseButton from "react-bootstrap/CloseButton";
 import { Line } from "react-chartjs-2";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useState } from "react";
+import room from "../../../assets/room.png";
+import logo_yanolja from "../../../assets/logo_yanolja.png";
+import logo_yeogiattae from "../../../assets/logo_yeogiattae.png";
 
 const SidebarMapDetail = () => {
   const {
-    isMapDetailOpen,
     sidebarMapDetailId,
     sidebarMapDetailData,
     switchMapDetail,
     sidebarMapDetailRawData,
     setSidebarMapDetailData,
+    isMapDetailOpen,
   } = useGlobalContext();
-  const [selectItem, setSelectItem] = useState();
+  const [selectItem, setSelectItem] = useState(-1);
 
   const setChartData = (props, idx) => {
     console.log(props.roomId);
     let label = [];
     let yeoggiatte = [];
     let yanolja = [];
-    props.stayPriceList.map((data) => {
+    props.stayPriceListYanolja.map((data) => {
       label.push(data.checkInDate);
-      if (data.platform === "YEOGIEOTTAE") {
-        yeoggiatte.push(data.price);
-        yanolja.push(null);
-      } else {
-        yeoggiatte.push(null);
-        yanolja.push(data.price);
-      }
+      yanolja.push(data.price);
     });
-    setSidebarMapDetailData({
-      labels: label,
-      datasets: [
-        {
-          label: "야놀자",
-          backgroundColor: "rgba(194, 116, 161, 0.5)",
-          borderColor: "rgb(194, 116, 161)",
-          data: yanolja,
-        },
-        {
-          label: "여기어때",
-          backgroundColor: "rgba(71, 225, 167, 0.5)",
-          borderColor: "rgb(71, 225, 167)",
-          data: yeoggiatte,
-        },
-      ],
+    props.stayPriceListYeogieottae.map((data) => {
+      label.push(data.checkInDate);
+      yeoggiatte.push(data.price);
     });
+    if (yeoggiatte !== []) {
+      setSidebarMapDetailData({
+        labels: label,
+        datasets: [
+          {
+            label: "여기어때",
+            backgroundColor: "rgba(71, 225, 167, 0.5)",
+            borderColor: "rgb(71, 225, 167)",
+            data: yeoggiatte,
+          },
+        ],
+      });
+    } else if (yanolja !== []) {
+      setSidebarMapDetailData({
+        labels: label,
+        datasets: [
+          {
+            label: "야놀자",
+            backgroundColor: "rgba(194, 116, 161, 0.5)",
+            borderColor: "rgb(194, 116, 161)",
+            data: yanolja,
+          },
+        ],
+      });
+    }
     setSelectItem(idx);
     console.log("selectItem", selectItem);
   };
 
+  const CloseSidebarDetail = () => {
+    switchMapDetail();
+    setSidebarMapDetailData({ labels: [], datasets: [] });
+    setSelectItem(-1);
+  };
   return (
-    <Card
-      className={`${
-        isMapDetailOpen ? "detailsidebar show-detailsidebar" : "detailsidebar"
-      }`}
+    <div
+      className={
+        isMapDetailOpen === true
+          ? "detailsidebar show-detailsidebar"
+          : "detailsidebar"
+      }
     >
+      <CloseButton onClick={CloseSidebarDetail} />
       <Card.Body>
-        <button
-          type="button"
-          class="btn-close"
-          aria-label="Close"
-          style={{ top: 20, right: 20, position: "fixed" }}
-          onClick={switchMapDetail}
-        />
-        <h4>{sidebarMapDetailId}</h4>
+        <AccomodationName>
+          <AccomodationImg />
+          <h4>{sidebarMapDetailId}</h4>
+        </AccomodationName>
+        <ChartDetailTop>
+          <ChartDetailImg
+            src={
+              selectItem === -1
+                ? room
+                : // : sidebarMapDetailRawData[selectItem].imgUrl[0]
+                  room
+            }
+          />
+          <ChartDetailName>
+            {selectItem !== -1
+              ? sidebarMapDetailRawData[selectItem].roomName
+              : "-"}
+          </ChartDetailName>
+          <br />
+          <ChartDetailAvg>
+            <ChartDetailDayAvg>
+              평일 요금 평균
+              {selectItem !== -1
+                ? Number.parseInt(
+                    (sidebarMapDetailRawData[selectItem]
+                      .weekdayStayAveragePrice *
+                      10) /
+                      10
+                  )
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
+                : "-"}
+            </ChartDetailDayAvg>
+            <ChartDetailWeekendAvg>
+              주말 요금 평균
+              {selectItem !== -1
+                ? Number.parseInt(
+                    (sidebarMapDetailRawData[selectItem]
+                      .weekendStayAveragePrice *
+                      10) /
+                      10
+                  )
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
+                : "-"}
+            </ChartDetailWeekendAvg>
+          </ChartDetailAvg>
+        </ChartDetailTop>
         <RoomDetail>
           {sidebarMapDetailRawData.map((data, idx) => {
+            console.log(data);
             return (
               <RoomDetailBox
                 onClick={() => setChartData(data, idx)}
                 selected={idx === selectItem}
               >
-                {data.roomName}
-                <br />
-                {data.stayPriceYeogieottae}
+                <RoomDetailBoxImg
+                  src={room}
+                  // src={data.imgUrl[0] === null ? room : data.imgUrl[0]}
+                ></RoomDetailBoxImg>
+                <RoomDetailBoxName>{data.roomName}</RoomDetailBoxName>
+                <RoomDetailBoxPrice>
+                  {data.stayPriceYeogieottae == null
+                    ? "-"
+                    : data.stayPriceYeogieottae
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"}
+                </RoomDetailBoxPrice>
               </RoomDetailBox>
             );
           })}
@@ -85,41 +152,86 @@ const SidebarMapDetail = () => {
           <Line
             data={sidebarMapDetailData}
             width={600}
-            height={300}
+            height={250}
             options={{ responsive: false }}
           />
         </ChartDetail>
       </Card.Body>
-    </Card>
+    </div>
   );
 };
 
 export default SidebarMapDetail;
 
 const RoomDetail = styled.div`
-  width: 300px;
+  width: 330px;
   height: 300px;
   float: left;
   overflow: auto;
 `;
 
+const AccomodationName = styled.div`
+  width: 330px;
+  float: left;
+`;
+const AccomodationImg = styled.img``;
+
 const ChartDetail = styled.div`
-  width: 600px;
+  width: 550px;
   height: 300px;
   float: left;
 `;
+const ChartDetailTop = styled.div`
+  width: 550px;
+  float: left;
+  column-count: 2;
+`;
+const ChartDetailName = styled.span`
+  width: 300px;
+  float: left;
+`;
+
+const ChartDetailImg = styled.img`
+  height: 50px;
+  float: left;
+`;
+
+const ChartDetailAvg = styled.div`
+  height: 50px;
+  float: left;
+`;
+
+const ChartDetailDayAvg = styled.div``;
+
+const ChartDetailWeekendAvg = styled.div``;
 
 const RoomDetailBox = styled.div`
   border: 1px solid #d0d0d0;
-  height: 60px;
-  width: 250px;
-  margin-top: 9px;
+  height: 43px;
+  width: 300px;
+  margin-top: 10px;
   margin-left: 10px;
-  clear: both;
 
   &:hover {
     background-color: #bababa;
   }
 
   background-color: ${(props) => (props.selected ? "#bababa" : "#ffffff")};
+`;
+
+const RoomDetailBoxName = styled.div`
+  font-size: 12px;
+  font-weight: 700;
+`;
+
+const RoomDetailBoxPrice = styled.div`
+  font-size: 16px;
+  font-weight: 700;
+  text-align: right;
+`;
+
+const RoomDetailBoxImg = styled.img`
+  width: 63px;
+  height: 43px;
+  float: left;
 `;

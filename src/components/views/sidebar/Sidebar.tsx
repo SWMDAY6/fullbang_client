@@ -27,7 +27,6 @@ const Sidebar = (props: any) => {
 
   const handleChange = (e: any) => {
     setKeyword(e.target.value);
-
     console.log("value is:", e.target.value);
   };
 

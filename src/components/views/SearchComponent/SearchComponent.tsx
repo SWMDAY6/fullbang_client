@@ -42,8 +42,7 @@ const SearchComponent = () => {
       zoomLevel: zoomLevelSido,
     });
   };
-  const zoomLevelSido = 10,
-    zoomLevelSigungu = 7;
+  const zoomLevelSido = 10;
   const handleSigungu = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSigungu(e.target.value);
     setSelectedAddressDetail({
@@ -83,20 +82,8 @@ const SearchComponent = () => {
     setMapCenter({ lat: v?.latitude, lng: v?.longitude, zoomLevel: 5 });
   };
   const parkingAbleHandler = () => {
-    // setParkingAble(!parkingAble);
-    if (parkingAble == true) setParkingAble(false);
+    if (parkingAble === true) setParkingAble(false);
     else setParkingAble(true);
-  };
-  const parkingUnableHandler = () => {
-    setParkingUnable(!parkingUnable);
-  };
-  const clearHandler = () => {
-    setSido("0");
-    setSigungu("0");
-    setDong("0");
-    setPeopleNum(2);
-    setParkingAble(false);
-    setParkingUnable(false);
   };
   return (
     <div className="SearchComponent">
@@ -139,7 +126,7 @@ const SearchComponent = () => {
           }}
           id="peopleMinusButton"
         >
-          <img src={button_minus} />
+          <img src={button_minus} alt="" />
         </button>
         <div id="peopleNum">{peopleNum}</div>
         <button
@@ -150,7 +137,7 @@ const SearchComponent = () => {
           }}
           id="peoplePlusButton"
         >
-          <img src={button_plus} />
+          <img src={button_plus} alt="" />
         </button>
       </div>
       <div id="Parking">
@@ -161,13 +148,6 @@ const SearchComponent = () => {
           onChange={(e) => parkingAbleHandler()}
         />
         <label htmlFor="parkingAble">주차가능</label>
-        <input
-          type="checkbox"
-          checked={parkingUnable}
-          id="parkingUnable"
-          onChange={(e) => parkingUnableHandler()}
-        />
-        <label htmlFor="parkingUnable">주차불가</label>
       </div>
       {/* <button id="clear" onClick={clearHandler}>
         필터초기화

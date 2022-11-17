@@ -4,7 +4,6 @@ type params = {
   capacity: number;
   date: string;
   parkingAvailability: string;
-  placeType: string;
 };
 
 const axiosGetAverageValue = (url: string, params: params) => {

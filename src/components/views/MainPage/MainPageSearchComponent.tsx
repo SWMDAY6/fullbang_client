@@ -154,13 +154,6 @@ const MainPageSearchComponent = () => {
           onChange={(e) => parkingAbleHandler()}
         />
         <label htmlFor="parkingAble">주차가능</label>
-        <input
-          type="checkbox"
-          checked={parkingUnable}
-          id="parkingUnable"
-          onChange={(e) => parkingUnableHandler()}
-        />
-        <label htmlFor="parkingUnable">주차불가</label>
       </div>
       {/* <button id="clear" onClick={clearHandler}>
         필터초기화

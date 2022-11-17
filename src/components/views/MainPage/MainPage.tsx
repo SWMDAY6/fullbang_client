@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import background_hotel from "../../../assets/background_hotel.png";
@@ -44,35 +44,61 @@ const Main = () => {
   const [average, setAverage] = useState(averageTemp);
 
   const getAverageValue = async (props: string) => {
+    const url = "http://api.fullbang.kr:8080/product/" + props + "/marketPrice";
     // const now = new Date();
-    const url =
-      "http://api.fullbang.kr:8080/product/" + props + "/marketPrice?";
     // const date =
     //   now.getFullYear() +
     //   "-" +
     //   ("00" + (now.getMonth() + 1)).slice(-2) +
     //   "-" +
     //   ("00" + (now.getDate() - 1)).slice(-2);
-    const date = "2022-08-05";
-
+    const date = "2022-10-11";
+    let averageTemp2 = [
+      {
+        name: "모텔 평균",
+        price_low: 0,
+        price_high: 0,
+        people: 2,
+      },
+      {
+        name: "호텔 평균",
+        price_low: 0,
+        price_high: 0,
+        people: 2,
+      },
+      {
+        name: "펜션 평균",
+        price_low: 0,
+        price_high: 0,
+        people: 2,
+      },
+      {
+        name: "캠핑 평균",
+        price_low: 0,
+        price_high: 0,
+        people: 2,
+      },
+    ];
     let params = {
       capacity: 0,
       date: date,
       parkingAvailability: "true",
-      placeType: "MOTEL",
     };
 
     for (let i = 0; i < placeTypeList.length; i++) {
-      params.placeType = placeTypeList[i];
-      const response = await axiosGetAverageValue(url, params);
-      averageTemp[i].price_low =
+      // params.placeType = placeTypeList[i];
+      const response = await axiosGetAverageValue(
+        url + "/" + placeTypeList[i],
+        params
+      );
+      averageTemp2[i].price_low =
         Math.floor(response.data.minMeanOfRange / 10) * 10;
-      averageTemp[i].price_high =
+      averageTemp2[i].price_high =
         Math.floor(response.data.maxMeanOfRange / 10) * 10;
     }
-    setAverage(averageTemp);
+    setAverage(averageTemp2);
   };
-
+  
   useEffect(() => {
     getAverageValue("11680101");
   }, []);
@@ -81,7 +107,7 @@ const Main = () => {
     <>
       <HeaderComponent />
       <Wrapper>
-        <MainWrap>{/* <MainPageSearchComponent /> */}</MainWrap>
+        <MainWrap />
       </Wrapper>
       <ButtonWrap>
         <Link to="/map">
@@ -109,10 +135,10 @@ const Main = () => {
           </span>
         </Link>
       </ButtonWrap>
-      <PromotionWrap>
+      {/* <PromotionWrap>
         <div className="promotionTitle">프로모션 지원 대상</div>
         <div>개발 중</div>
-      </PromotionWrap>
+      </PromotionWrap> */}
       <AverageWrap>
         <div className="averageTitle">{address} 시세</div>
         <div className="placeText">{address}</div>

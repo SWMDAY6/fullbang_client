@@ -1,9 +1,3 @@
-html,
-body {
-  height: 100%;
-  overflow: hidden;
-}
-
 .error-page {
   display: flex;
   align-items: center;
