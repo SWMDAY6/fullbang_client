@@ -11,8 +11,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { Form } from "react-bootstrap";
 import { useGlobalContext } from "../../../context";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface propsType {
   searchKeyword: string;
@@ -58,6 +57,12 @@ const LandingPage = (): JSX.Element => {
     SunPer: 0,
     email: "",
   });
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "auto",
+    });
+  }, []);
   const onChangeInputForm = (e: any) => {
     setInputForm({
       ...inputForm,
@@ -298,12 +303,7 @@ const LandingPage = (): JSX.Element => {
       <HeaderComponent />
       <SearchComponent />
       <Sidebar />
-
-      <div className="landing-page">
-        <div className="landing-page__inner">
-          <Map />
-        </div>
-      </div>
+      <Map />
       <SidebarMapDetail />
     </>
   );
