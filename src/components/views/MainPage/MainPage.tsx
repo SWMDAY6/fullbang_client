@@ -91,6 +91,7 @@ const Main = () => {
         url + "/" + placeTypeList[i],
         params
       );
+      // console.log(url + "/" + placeTypeList[i]);
       averageTemp2[i].price_low =
         Math.floor(response.data.minMeanOfRange / 10) * 10;
       averageTemp2[i].price_high =
@@ -98,7 +99,7 @@ const Main = () => {
     }
     setAverage(averageTemp2);
   };
-  
+
   useEffect(() => {
     getAverageValue("11680101");
   }, []);
@@ -144,7 +145,7 @@ const Main = () => {
         <div className="placeText">{address}</div>
         <div>
           {average.map((avg) => {
-            console.log(avg);
+            // console.log(avg);
             return (
               <AverageBox>
                 <div className="avgName">{avg.name}</div>

@@ -13,9 +13,6 @@
   margin-top: 138px;
   margin-bottom: 0;
   width: 372px;
-}
-
-.show-sidebar {
   transform: translate(0);
   z-index: 1000;
 }
@@ -44,7 +41,7 @@
   bottom: 10px;
   left: 400px;
   height: 350px;
-  width: 1000px;
+  width: 1300px;
   background: var(--clr-white);
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -58,22 +55,15 @@
   z-index: 9999;
 }
 
-html {
-  height: 100%;
-}
-/* div#root {
-  height: 100%;
-} */
-div .landing-page .landing-page__inner .map-container,
-div.landing-page .landing-page__inner,
-div.landing-page {
-  height: 1000px;
+.map-container {
+  height: calc(100%);
 }
 
 .map {
-  height: 1000px;
+  height: 100%;
   margin-left: 372px;
 }
+
 .SearchComponent {
   width: 100%;
   height: 65px;

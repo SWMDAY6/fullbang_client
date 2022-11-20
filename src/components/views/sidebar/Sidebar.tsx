@@ -20,18 +20,17 @@ const Sidebar = (props: any) => {
           setProductLists(response.data);
         })
         .catch(function (error) {
-          console.log(error);
+          // console.log(error);
         });
     }
   };
 
   const handleChange = (e: any) => {
     setKeyword(e.target.value);
-    console.log("value is:", e.target.value);
   };
 
   return (
-    <aside className="sidebar show-sidebar">
+    <aside className="sidebar">
       <input
         type="textbox"
         id="searchTextbox"
@@ -41,7 +40,7 @@ const Sidebar = (props: any) => {
       />
       <AccommodationWrap>
         {productList.map((data: any) => {
-          console.log(data);
+          // console.log(data);
           return (
             <AccommodationBox>
               <AcoomodationImage>
