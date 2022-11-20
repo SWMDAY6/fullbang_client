@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useState } from "react";
 import {
   bubjungdong_sido,
@@ -14,7 +15,7 @@ const MainPageSearchComponent = () => {
   const [dong, setDong] = useState("101");
   const [peopleNum, setPeopleNum] = useState(2);
   const [parkingAble, setParkingAble] = useState(false);
-  const [parkingUnable, setParkingUnable] = useState(false);
+  // const [parkingUnable, setParkingUnable] = useState(false);
   const {
     selectedAddress,
     setSelectedAddressDetail,
@@ -80,17 +81,17 @@ const MainPageSearchComponent = () => {
   const parkingAbleHandler = () => {
     setParkingAble(!parkingAble);
   };
-  const parkingUnableHandler = () => {
-    setParkingUnable(!parkingUnable);
-  };
-  const clearHandler = () => {
-    setSido("0");
-    setSigungu("0");
-    setDong("0");
-    setPeopleNum(2);
-    setParkingAble(false);
-    setParkingUnable(false);
-  };
+  // const parkingUnableHandler = () => {
+  //   setParkingUnable(!parkingUnable);
+  // };
+  // const clearHandler = () => {
+  //   setSido("0");
+  //   setSigungu("0");
+  //   setDong("0");
+  //   setPeopleNum(2);
+  //   setParkingAble(false);
+  //   setParkingUnable(false);
+  // };
   return (
     <div className="SearchComponent">
       <div id="selectAddress">
@@ -132,7 +133,7 @@ const MainPageSearchComponent = () => {
           }}
           id="peopleMinusButton"
         >
-          <img src={button_minus} />
+          <img src={button_minus} alt="" />
         </button>
         <div id="peopleNum">{peopleNum}</div>
         <button
@@ -143,7 +144,7 @@ const MainPageSearchComponent = () => {
           }}
           id="peoplePlusButton"
         >
-          <img src={button_plus} />
+          <img src={button_plus} alt="" />
         </button>
       </div>
       <div id="Parking">

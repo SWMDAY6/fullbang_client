@@ -31,11 +31,11 @@ const AppProvider = ({ children }) => {
   const [sidebarMapDetailRawData, setSidebarMapDetailRawData] = useState([]);
 
   const openModal = () => {
-    console.log("modalopen");
+    // console.log("modalopen");
     setIsModalOpen(true);
   };
   const closeModal = () => {
-    console.log("modalclose");
+    // console.log("modalclose");
     setIsModalOpen(false);
   };
   const openSearchDetail = () => {
@@ -102,8 +102,8 @@ const AppProvider = ({ children }) => {
     };
     const url = "http://fullbang.kr:8080/room/" + idx;
     const response = await axiosGetRoomDetail(url, params);
-    console.log("setSidebarMapDetail");
-    console.log(response.data[0]);
+    // console.log("setSidebarMapDetail");
+    // console.log(response.data[0]);
     setSidebarMapDetailRawData(response.data);
     setSidebarMapDetailId(name);
   };

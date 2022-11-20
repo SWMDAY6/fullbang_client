@@ -35,8 +35,8 @@ const Map = () => {
   } = useGlobalContext();
 
   function removeMarker() {
-    console.log("removeMarker");
-    console.log(markers);
+    // console.log("removeMarker");
+    // console.log(markers);
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
@@ -53,7 +53,7 @@ const Map = () => {
       center.getLat() +
       "&x=" +
       center.getLng();
-    console.log(url);
+    // console.log(url);
     return fetch(url, {
       headers: {
         Authorization:
@@ -63,11 +63,11 @@ const Map = () => {
       .then((response) => response.json())
       .then((json) => {
         if (json !== undefined) {
-          console.log({
-            sido: json.documents[0].code.substring(0, 2),
-            sigungu: json.documents[0].code.substring(2, 5),
-            dong: json.documents[0].code.substring(5, 8),
-          });
+          // console.log({
+          //   sido: json.documents[0].code.substring(0, 2),
+          //   sigungu: json.documents[0].code.substring(2, 5),
+          //   dong: json.documents[0].code.substring(5, 8),
+          // });
           if (level < 7) {
             setSelectedAddressDetail({
               sido: json.documents[0].code.substring(0, 2),
@@ -102,7 +102,7 @@ const Map = () => {
 
     const drawMarker = async () => {
       var level = map.getLevel();
-      console.log("maplevel", level);
+      // console.log("maplevel", level);
       removeMarker();
       if (level <= 4) {
         const url = "http://api.fullbang.kr:8080/places";
@@ -128,7 +128,7 @@ const Map = () => {
             data.latitude,
             data.longitude
           );
-          console.log(data, idx);
+          // console.log(data, idx);
           if (data.lowestPrice !== 0 && data.lowestPrice !== -1) {
             addMarker(
               placePosition,
@@ -140,6 +140,7 @@ const Map = () => {
             realData.push(data);
           }
         });
+        // console.log("realData", realData);
         setProductLists(realData);
       } else if (level <= 6) {
         // 동 평균
@@ -252,12 +253,12 @@ const Map = () => {
     };
     kakao.maps.event.addListener(map, "dragend", function () {
       locationToAddress(map.getCenter(), map.getLevel());
-      console.log("drag_end", map.getLevel());
-      console.log(map.getBounds());
+      // console.log("drag_end", map.getLevel());
+      // console.log(map.getBounds());
       drawMarker();
     });
     kakao.maps.event.addListener(map, "zoom_changed", function () {
-      console.log("zoom_changed", map.getLevel());
+      // console.log("zoom_changed", map.getLevel());
       drawMarker();
     });
 
@@ -320,10 +321,10 @@ const Map = () => {
       customoverlays.push(customOverlay);
 
       kakao.maps.event.addListener(marker, "mouseover", function () {
-        console.log(idx + "mouse over");
+        // console.log(idx + "mouse over");
       });
       kakao.maps.event.addListener(marker, "click", function () {
-        console.log(idx + "clicked");
+        // console.log(idx + "clicked");
         setSidebarMapDetail(idx, name);
         switchMapDetail();
       });

@@ -1,8 +1,8 @@
 html {
-  height: auto;
+  height: 100%;
 }
 div#root {
-  height: auto;
+  height: 100%;
   overflow: hidden;
 }
 

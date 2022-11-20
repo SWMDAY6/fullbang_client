@@ -20,7 +20,7 @@ const Sidebar = (props: any) => {
           setProductLists(response.data);
         })
         .catch(function (error) {
-          console.log(error);
+          // console.log(error);
         });
     }
   };
@@ -40,7 +40,7 @@ const Sidebar = (props: any) => {
       />
       <AccommodationWrap>
         {productList.map((data: any) => {
-          console.log(data);
+          // console.log(data);
           return (
             <AccommodationBox>
               <AcoomodationImage>

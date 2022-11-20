@@ -21,7 +21,7 @@ const SidebarMapDetail = () => {
   const [selectItem, setSelectItem] = useState(-1);
 
   const setChartData = (props, idx) => {
-    console.log(props.roomId);
+    // console.log(props.roomId);
     let label = [];
     let yeoggiatte = [];
     let yanolja = [];
@@ -33,8 +33,8 @@ const SidebarMapDetail = () => {
       label.push(data.checkInDate);
       yeoggiatte.push(data.price);
     });
-    console.log(yeoggiatte);
-    console.log(yanolja);
+    // console.log(yeoggiatte);
+    // console.log(yanolja);
     if (yeoggiatte.length !== 0) {
       setSidebarMapDetailData({
         labels: label,
@@ -61,11 +61,11 @@ const SidebarMapDetail = () => {
       });
     }
     setSelectItem(idx);
-    console.log("selectItem", selectItem);
+    // console.log("selectItem", selectItem);
   };
   const ChartDetailImgSelector = () => {
     if (selectItem === -1) return room;
-    console.log(sidebarMapDetailRawData[selectItem].imgUrl[0]);
+    // console.log(sidebarMapDetailRawData[selectItem].imgUrl[0]);
     return "http://" + sidebarMapDetailRawData[selectItem].imgUrl[0];
   };
 
@@ -81,13 +81,12 @@ const SidebarMapDetail = () => {
   };
 
   const RoomImgSelector = () => {
-    // productLists
-    console.log(productList);
+    // console.log(productList);
     if (productList.length === 0) return room;
     const selectedProduct = productList.find(
       (element) => element.placeName === sidebarMapDetailId
     );
-    console.log(selectedProduct);
+    // console.log(selectedProduct);
     if (selectedProduct !== undefined && selectedProduct.placeImage !== "")
       return selectedProduct.placeImage;
     return room;
@@ -139,7 +138,7 @@ const SidebarMapDetail = () => {
         </ChartDetailTop>
         <RoomDetail>
           {sidebarMapDetailRawData.map((data, idx) => {
-            console.log(data);
+            // console.log(data);
             return (
               <RoomDetailBox
                 onClick={() => setChartData(data, idx)}
