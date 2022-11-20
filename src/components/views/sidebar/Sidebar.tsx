@@ -27,11 +27,10 @@ const Sidebar = (props: any) => {
 
   const handleChange = (e: any) => {
     setKeyword(e.target.value);
-    console.log("value is:", e.target.value);
   };
 
   return (
-    <aside className="sidebar show-sidebar">
+    <aside className="sidebar">
       <input
         type="textbox"
         id="searchTextbox"

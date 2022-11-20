@@ -5,8 +5,8 @@ import { Line } from "react-chartjs-2";
 import styled from "styled-components";
 import { useState } from "react";
 import room from "../../../assets/room.png";
-import logo_yanolja from "../../../assets/logo_yanolja.png";
-import logo_yeogiattae from "../../../assets/logo_yeogiattae.png";
+// import logo_yanolja from "../../../assets/logo_yanolja.png";
+// import logo_yeogiattae from "../../../assets/logo_yeogiattae.png";
 
 const SidebarMapDetail = () => {
   const {
@@ -16,6 +16,7 @@ const SidebarMapDetail = () => {
     sidebarMapDetailRawData,
     setSidebarMapDetailData,
     isMapDetailOpen,
+    productList,
   } = useGlobalContext();
   const [selectItem, setSelectItem] = useState(-1);
 
@@ -32,7 +33,9 @@ const SidebarMapDetail = () => {
       label.push(data.checkInDate);
       yeoggiatte.push(data.price);
     });
-    if (yeoggiatte !== []) {
+    console.log(yeoggiatte);
+    console.log(yanolja);
+    if (yeoggiatte.length !== 0) {
       setSidebarMapDetailData({
         labels: label,
         datasets: [
@@ -44,7 +47,7 @@ const SidebarMapDetail = () => {
           },
         ],
       });
-    } else if (yanolja !== []) {
+    } else if (yanolja.length !== 0) {
       setSidebarMapDetailData({
         labels: label,
         datasets: [
@@ -60,12 +63,36 @@ const SidebarMapDetail = () => {
     setSelectItem(idx);
     console.log("selectItem", selectItem);
   };
+  const ChartDetailImgSelector = () => {
+    if (selectItem === -1) return room;
+    console.log(sidebarMapDetailRawData[selectItem].imgUrl[0]);
+    return "http://" + sidebarMapDetailRawData[selectItem].imgUrl[0];
+  };
+
+  const RoomDetailBoxImgSelector = (data) => {
+    if (data.imgUrl[0] === null) return room;
+    return data.imgUrl[0];
+  };
 
   const CloseSidebarDetail = () => {
     switchMapDetail();
     setSidebarMapDetailData({ labels: [], datasets: [] });
     setSelectItem(-1);
   };
+
+  const RoomImgSelector = () => {
+    // productLists
+    console.log(productList);
+    if (productList.length === 0) return room;
+    const selectedProduct = productList.find(
+      (element) => element.placeName === sidebarMapDetailId
+    );
+    console.log(selectedProduct);
+    if (selectedProduct !== undefined && selectedProduct.placeImage !== "")
+      return selectedProduct.placeImage;
+    return room;
+  };
+
   return (
     <div
       className={
@@ -74,36 +101,25 @@ const SidebarMapDetail = () => {
           : "detailsidebar"
       }
     >
-      <CloseButton onClick={CloseSidebarDetail} />
+      <CloseButton onClick={CloseSidebarDetail} className="float-right" />
       <Card.Body>
         <AccomodationName>
-          <AccomodationImg />
-          <h4>{sidebarMapDetailId}</h4>
+          <AccomodationImg src={RoomImgSelector()} />
+          <span>{sidebarMapDetailId}</span>
         </AccomodationName>
         <ChartDetailTop>
-          <ChartDetailImg
-            src={
-              selectItem === -1
-                ? room
-                : // : sidebarMapDetailRawData[selectItem].imgUrl[0]
-                  room
-            }
-          />
+          <ChartDetailImg src={ChartDetailImgSelector()} />
           <ChartDetailName>
             {selectItem !== -1
               ? sidebarMapDetailRawData[selectItem].roomName
               : "-"}
           </ChartDetailName>
-          <br />
           <ChartDetailAvg>
             <ChartDetailDayAvg>
               평일 요금 평균
               {selectItem !== -1
-                ? Number.parseInt(
-                    (sidebarMapDetailRawData[selectItem]
-                      .weekdayStayAveragePrice *
-                      10) /
-                      10
+                ? Math.floor(
+                    sidebarMapDetailRawData[selectItem].weekdayStayAveragePrice
                   )
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
@@ -112,11 +128,8 @@ const SidebarMapDetail = () => {
             <ChartDetailWeekendAvg>
               주말 요금 평균
               {selectItem !== -1
-                ? Number.parseInt(
-                    (sidebarMapDetailRawData[selectItem]
-                      .weekendStayAveragePrice *
-                      10) /
-                      10
+                ? Math.floor(
+                    sidebarMapDetailRawData[selectItem].weekendStayAveragePrice
                   )
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"
@@ -133,7 +146,7 @@ const SidebarMapDetail = () => {
                 selected={idx === selectItem}
               >
                 <RoomDetailBoxImg
-                  src={room}
+                  src={RoomDetailBoxImgSelector(data)}
                   // src={data.imgUrl[0] === null ? room : data.imgUrl[0]}
                 ></RoomDetailBoxImg>
                 <RoomDetailBoxName>{data.roomName}</RoomDetailBoxName>
@@ -171,10 +184,13 @@ const RoomDetail = styled.div`
 `;
 
 const AccomodationName = styled.div`
-  width: 330px;
+  width: 530px;
   float: left;
 `;
-const AccomodationImg = styled.img``;
+const AccomodationImg = styled.img`
+  width: 92px;
+  height: 70px;
+`;
 
 const ChartDetail = styled.div`
   width: 550px;
@@ -187,12 +203,13 @@ const ChartDetailTop = styled.div`
   column-count: 2;
 `;
 const ChartDetailName = styled.span`
-  width: 300px;
+  width: 500px;
   float: left;
 `;
 
 const ChartDetailImg = styled.img`
-  height: 50px;
+  width: 75px;
+  height: 51px;
   float: left;
 `;
 
